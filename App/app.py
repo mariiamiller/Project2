@@ -186,6 +186,24 @@ def dailyprice(symbol):
 
     return jsonify(prices)
 
+@app.route("/intradayprice/<symbol>")
+def intradayprice(symbol):
+    api_key =  "V9FZCMP0HRSJA6B"
+    base_url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AMZN&interval=5min&apikey="+api_key
+
+    
+    price_time = "TIME_SERIES_INTRADAY"
+    interval = "5min"
+    url =  f"{base_url}function={price_time}&symbol={symbol}&interval={interval}&apikey={api_key}"
+    response = requests.get(url).json()
+
+    as_of = response["Meta Data"]["3. Last Refreshed"]
+    price = response["Time Series (5min)"][as_of]["4. close"]
+
+
+    data = [as_of, price]
+    return jsonify(data)
+
 
 
 if __name__ == "__main__":
