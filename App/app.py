@@ -2,6 +2,10 @@ import os
 
 import pandas as pd
 import numpy as np
+import requests
+import time
+import csv
+import json
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -39,7 +43,7 @@ Base.prepare(engine, reflect=True)
 Earnings = Base.classes.earnings
 symbols = Base.classes.symbols
 q3earnings = Base.classes.earnings_dates
-
+surprise_sum = Base.classes.surprise_summary_clean
 
 @app.route("/")
 def index():
@@ -60,7 +64,7 @@ def namelist():
 
     session = Session(engine)
 
-    results = session.query(symbols.Symbol).all()
+    results = session.query(symbols.Symbol).order_by(symbols.Symbol).all()
 
     #session.close()
     all_symbols = list(np.ravel(results))
@@ -152,6 +156,36 @@ def q3earnings_date(symbol):
 
 
     return jsonify(data)
+@app.route("/surprise/<symbol>")
+def surprise(symbol):
+    """Return `q3` surprise data."""
+
+    session = Session(engine)
+    results = session.query( surprise_sum.symbol, surprise_sum.surp_score, surprise_sum.beat_score).\
+    filter(surprise_sum.symbol == symbol).all()
+    #session.close()
+    
+    data = list(np.ravel(results))
+
+    return jsonify(data)
+
+@app.route("/dailyprice/<symbol>")
+def dailyprice(symbol):
+    api_key =  "V9FZCMP0HRSJA6B"
+    base_url = "https://www.alphavantage.co/query?"
+
+    price_time = "TIME_SERIES_DAILY_ADJUSTED"
+
+    url =  f"{base_url}function={price_time}&symbol={symbol}&outputsize=full&apikey={api_key}"
+    response = requests.get(url).json()
+    dates = response.get("Time Series (Daily)").keys()
+    prices = {}
+    for date in dates:
+        prices[date] = response['Time Series (Daily)'][date]['5. adjusted close']
+
+
+    return jsonify(prices)
+
 
 
 if __name__ == "__main__":
