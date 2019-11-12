@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Earnings vs Stock Price</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -24,6 +25,8 @@
           <h5>SELECT Symbol:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
           <div id="sample-metadata" class="panel-body"></div>
+
+
         </div>
         <!-- <div class="panel panel-primary">
           <div class="panel-heading">
@@ -42,13 +45,16 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="panel panel-primary">
+          <div id="gauge"></div>
+          <div id="gauge2"></div>
+        <!-- <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Surprise score</h3>
-            <div id="gauge"></div>
+            
           </div>
           <div id="earnings-date" class="panel-body"></div>
-        </div>
+          
+        </div> -->
       </div>
         
       </div>

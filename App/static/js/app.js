@@ -15,15 +15,23 @@ function buildMetadata(symbol) {
     // Use d3 to select the panel with id of `#sample-metadata`
 var sampleMetadata = d3.select("#sample-metadata")
 // Use `.html("") to clear any existing metadata
+sampleMetadata.selectAll("h2").remove();
 sampleMetadata.selectAll("p").remove();
+sampleMetadata.selectAll("a").remove();
 
 
-    // // Use `Object.entries` to add each key and value pair to the panel
-    for (key in data) {
-      line = data[key];
-    d3.select("#sample-metadata").append("p").text(line);
+d3.select("#sample-metadata").append("h2").text(data[0]);
+d3.select("#sample-metadata").append("p").text(data[1]);
+d3.select("#sample-metadata").append("p").text(data[2]);
+d3.select("#sample-metadata").append("p").text(data[3]);
+d3.select("#sample-metadata").append("a").text("more info").attr("xlink:href",data[4]);
+
+    // // // Use `Object.entries` to add each key and value pair to the panel
+    // for (key in data) {
+    //   line = data[key];
+    // d3.select("#sample-metadata").append("p").text(line);
   
-    }
+    // }
   });
 }
 
@@ -52,27 +60,64 @@ function buildEarningsDate(symbol) {
         }
 
       });
-    }
-    // var dataChart = [
-    //   {
-    //     domain: { x: [0, 1], y: [0, 1] },
-    //     value: data.WFREQ,
-    //     title: { text: "Washing Frequency - Scrubs per Week.", font: { size: 14 } },
-    //     type: "indicator",
-    //     mode: "gauge+number+delta",
-    //     gauge: {
-    //       axis: { range: [null, 9] },
-    //       steps: [
-    //         { range: [0, 3], color: "lightgray" },
-    //         { range: [3, 6], color: "darkgray" },
-    //         { range: [6, 9], color: "gray" }
-    //       ]
-    //     }
-    //   }
-    // ];
+   }
+
+
+
+
+   function buildSurprise(symbol) {
+    var url = "/surprise/"+symbol;
     
-    // var layout = { width: 350, height: 450, margin: { t: 0, b: 0 } };
-    // Plotly.newPlot('gauge', dataChart, layout);
+    d3.json(url).then(function(data) {
+    console.log(symbol);
+    console.log(data[2]);
+    
+    var dataChart = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: data[1],
+        title: { text: "Prediction Inaccuracy", font: { size: 14 } },
+        type: "indicator",
+        mode: "gauge+number+delta",
+        gauge: {
+          axis: { range: [null, .5] },
+          steps: [
+            { range: [0, .02589], color: "lightgreen" },
+            { range: [.02589, .125443], color: "yellow" },
+            { range: [.125443, .5], color: "red" }
+          ],
+
+        }
+      }
+    ];
+    
+    var layout = { width: 280, height: 180, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('gauge', dataChart, layout);
+
+    var dataChart2 = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: data[2],
+        title: { text: "Beat Score", font: { size: 14 } },
+        type: "indicator",
+        mode: "gauge+number+delta",
+        gauge: {
+          axis: { range: [null, 1] },
+          steps: [
+            { range: [0, .5], color: "red" },
+            { range: [.5, .821429], color: "yellow" },
+            { range: [.821429, 1], color: "lightgreen" }
+          ],
+
+        }
+      }
+    ];
+
+    var layout = { width: 280, height: 180, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('gauge2', dataChart2, layout);
+
+  });
+}
     // // Hint: Inside the loop, you will need to use d3 to append new
     // // tags for each key-value in the metadata.
 
@@ -153,6 +198,7 @@ function init() {
     // buildCharts(firstSample);
     buildMetadata(firstSample);
     buildEarningsDate(firstSample);
+    buildSurprise(firstSample);
   });
 }
 
@@ -161,6 +207,7 @@ function optionChanged(newSample) {
   // buildCharts(newSample);
   buildMetadata(newSample);
   buildEarningsDate(newSample);
+  buildSurprise(newSample);
 }
 
 // Initialize the dashboard

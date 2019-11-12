@@ -41,7 +41,7 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 Earnings = Base.classes.earnings
-symbols = Base.classes.symbols
+symbols = Base.classes.symbols_sectors
 q3earnings = Base.classes.earnings_dates
 surprise_sum = Base.classes.surprise_summary_clean
 
@@ -64,7 +64,7 @@ def namelist():
 
     session = Session(engine)
 
-    results = session.query(symbols.Symbol).order_by(symbols.Symbol).all()
+    results = session.query(symbols.symbol).order_by(symbols.symbol).all()
 
     #session.close()
     all_symbols = list(np.ravel(results))
@@ -85,8 +85,8 @@ def names(symbol):
 
     session = Session(engine)
 
-    results = session.query(symbols.Symbol, symbols.Name, symbols.SummaryQuote).\
-    filter(symbols.Symbol == symbol).all()
+    results = session.query(symbols.symbol, symbols.Name, symbols.sector, symbols.industry, symbols.SummaryQuote).\
+    filter(symbols.symbol == symbol).all()
 
     #session.close()
     all_symbols = list(np.ravel(results))
