@@ -50,18 +50,61 @@ function buildEarningsDate(symbol) {
     var earningsDate = d3.select("#earnings-date")
     // Use `.html("") to clear any existing metadata
     earningsDate.selectAll("p").remove();
-    
-    
-        // // Use `Object.entries` to add each key and value pair to the panel
-        for (key in data) {
-          line = data[key];
-        d3.select("#earnings-date").append("p").text(line);
+    var CurrentDate = new Date();
+    var givenDate = new Date(data[1]);
+
+    console.log(givenDate);
+    console.log(CurrentDate);
+    if (givenDate > CurrentDate) {
+      console.log("upcoming")
+    }
+    if (givenDate > CurrentDate) {
+        if (data[2]== 'pre' || data[2]== 'post') {
+    d3.select("#earnings-date").append("p").text("Upcoming release: "+data[1]+", "+data[2]+"-market");
+    }
+    else {
+      d3.select("#earnings-date").append("p").text("Upcoming release: "+data[1])
+    }
+    }
+        // // // Use `Object.entries` to add each key and value pair to the panel
+        // for (key in data) {
+        //   line = data[key];
+        // d3.select("#earnings-date").append("p").text(line);
       
-        }
+        // }
 
       });
    }
+   function buildEarningsRelease(symbol) {
 
+    var url = "/latest_report/"+symbol;
+    //Use `d3.json` to fetch the metadata for a sample
+    
+    var data = []
+   // d3.json(url, function (json) {
+     d3.json(url).then(function(data) { 
+  
+    console.log(data);
+      var earningsDate = d3.select("#earnings-release")
+      // Use `.html("") to clear any existing metadata
+      earningsDate.selectAll("p").remove();
+      earningsDate.selectAll("a").remove();
+
+      d3.select("#earnings-release").append("p").text(data[0]+" released on "+data[1]);
+      
+
+        d3.select("#earnings-release").append("a").text("full report").attr("xlink:href",data[2]);
+    
+      
+          // // // Use `Object.entries` to add each key and value pair to the panel
+          // for (key in data) {
+          //   line = data[key];
+          // d3.select("#earnings-date").append("p").text(line);
+        
+          // }
+  
+        });
+     }
 
 
 
@@ -199,6 +242,7 @@ function init() {
     buildMetadata(firstSample);
     buildEarningsDate(firstSample);
     buildSurprise(firstSample);
+    buildEarningsRelease(firstSample);
   });
 }
 
@@ -208,6 +252,7 @@ function optionChanged(newSample) {
   buildMetadata(newSample);
   buildEarningsDate(newSample);
   buildSurprise(newSample);
+  buildEarningsRelease(newSample);
 }
 
 // Initialize the dashboard

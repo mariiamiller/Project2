@@ -6,7 +6,7 @@ import requests
 import time
 import csv
 import json
-
+from bs4 import BeautifulSoup
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -204,7 +204,28 @@ def intradayprice(symbol):
     data = [as_of, price]
     return jsonify(data)
 
+@app.route("/latest_report/<symbol>")
+def latest_report(symbol):
 
+    url = 'https://www.sec.gov/cgi-bin/browse-edgar?CIK='+symbol+'&owner=exclude&action=getcompany&Find=Search'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text)
+    results = soup.find('table', class_="tableFile2")
+    trs = results.find_all('tr')
+    qtr_t = []
+    dates = []
+    links = []
+    for tr in trs:
+        line = tr.find('td')
+        if line:
+            if line.text == '10-Q'or line.text == '10-K':
+                qtr_t.append(line.text)
+                dates.append(tr.find_all('td')[3].text)
+                links.append('https://www.sec.gov'+tr.find_all('a')[1]['href'])
+    
+
+    data = (qtr_t[0],dates[0],links[0])
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run()
