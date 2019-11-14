@@ -8,6 +8,8 @@
   <title>Earnings vs Stock Price</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -72,7 +74,48 @@
         <div class="well">
             <h5>Real time price</h5>
 
-            <div id="intraday_price" class="panel-body"></div>
+            <div id="intraday_price" class="panel-body">
+              <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+              <div id="stock_miniQuote_head" class="ajaxtrigger"><span id="stockSymbol"></span>&nbsp;(common stock)</div>
+
+              <div id="stock_miniQuote">
+                <div id="stockIndicator">
+                  <p>Retrieving stock information...</p>
+                </div>
+
+                <div class="stock_divider">
+                  <div id="stock_left">
+                    <span class="stock_label">Price</span><br/>
+                    <strong class="stock_strong">$<span id="stockAsk"></span></strong><br/>
+                  </div>
+
+                  <div id="stock_right">
+                    <span class="stock_label">Change</span><br/>
+                    <strong class="stock_strong"><span id="stockChange"></span></strong><br />
+                    <strong class="stock_strong"><span id="stockChangePercent"></span></strong><br />
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+
+                <div id="stock_body">
+
+                  <div id="stock_body_content">
+                    <span class="stock_label">Volume</span><br/>
+                    <strong class="stock_strong"><span id="stockVolume"></span></strong>
+                    <br /><br />
+                    <span class="stock_label">Average Daily Volume</span><br/>
+                    <strong class="stock_strong"><span id="stockAvgVolume"></span></strong>
+                    <br /><br />
+                    <span class="stock_label">52 Week Range</span><br/>
+                    <strong class="stock_strong"><span id="stockRange"></span></strong>
+              
+                  </div>
+              
+                  <div style="clear: both;"></div>
+              
+                </div>
+              </div>
+          </div>
           </div>
           <div class="well">
               <h5>Latest News</h5>
@@ -88,6 +131,9 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <!-- <script src="{{ url_for('static', filename='js/bonus.js') }}"></script> -->
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/d3_test.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
 </body>
 

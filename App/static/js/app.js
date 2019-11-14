@@ -1,3 +1,13 @@
+console.log('client js')
+
+console.log("Mariaaa mariaaaaaa");
+
+
+$(document).ready(function() {
+  $('#selDataset').select2();
+  console.log("Mariaaa mariaaaaaa");
+});
+
 function buildMetadata(symbol) {
 
   // @TODO: Complete the following function that builds the metadata panel
@@ -24,7 +34,7 @@ d3.select("#sample-metadata").append("h2").text(data[0]);
 d3.select("#sample-metadata").append("p").text(data[1]);
 d3.select("#sample-metadata").append("p").text(data[2]);
 d3.select("#sample-metadata").append("p").text(data[3]);
-d3.select("#sample-metadata").append("a").text("more info").attr("xlink:href",data[4]);
+d3.select("#sample-metadata").append("a").text("more info").attr("href",data[4]);
 
     // // // Use `Object.entries` to add each key and value pair to the panel
     // for (key in data) {
@@ -93,7 +103,7 @@ function buildEarningsDate(symbol) {
       d3.select("#earnings-release").append("p").text(data[0]+" released on "+data[1]);
       
 
-        d3.select("#earnings-release").append("a").text("full report").attr("xlink:href",data[2]);
+        d3.select("#earnings-release").append("a").text("full report").attr("href",data[2]);
     
       
           // // // Use `Object.entries` to add each key and value pair to the panel
@@ -223,6 +233,66 @@ function buildEarningsDate(symbol) {
 //     // otu_ids, and labels (10 each).
 // }
 
+function buildIntradayPrice(symbol) {
+  var apiKey = "OSXA529CXOB3M9RL";
+
+  // var theURL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKey}`;
+  // var theURL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`;
+  var theURL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${apiKey}`
+
+
+  $(document).ready(function() {
+    $("#stockIndicator").show();
+    doAjax(theURL);
+
+    $('.ajaxtrigger').click(function() {
+      $("#stockIndicator").show();
+      doAjax(theURL);
+      return false;
+    });
+
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+    }
+
+    function doAjax(url) {
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        contentType: "application/json",
+        success: function(data) {
+
+          var stockSymbol = data['Meta Data']['2. Symbol']
+          var lastRefreshed = data['Meta Data']['3. Last Refreshed']
+          var lastTradePriceOnly = data['Time Series (5min)'][lastRefreshed]['4. close']
+          var lastVolume = data['Time Series (5min)'][lastRefreshed]['5. volume']
+          
+          var rawSeries = data['Time Series (5min)']
+          var series = Object.keys(rawSeries).map(timestamp => {
+            return {timestamp, value: rawSeries[timestamp]['4. close']}
+          });
+
+          var previousTradePrice = series[1].value
+
+          var change = lastTradePriceOnly - previousTradePrice
+          var percentageChange = change/previousTradePrice*100
+
+
+          console.log(parseFloat(percentageChange).toFixed(2)+"%")
+
+
+          $('#stockSymbol').html(stockSymbol);
+          $('#stockAsk').html(lastTradePriceOnly);
+          $('#stockVolume').html(numberWithCommas(lastVolume));
+          $('#stockChange').html(parseFloat(change).toFixed(2));
+          $("#stockChangePercent").html(parseFloat(percentageChange).toFixed(2)+"%");
+          $("#stockIndicator").hide();
+        }
+      });
+    }
+  });
+}
+
 function init() {
   // Grab a reference to the dropdown select element
   var selector = d3.select("#selDataset");
@@ -243,6 +313,9 @@ function init() {
     buildEarningsDate(firstSample);
     buildSurprise(firstSample);
     buildEarningsRelease(firstSample);
+    // TODO
+    buildChart(firstSample);
+    buildIntradayPrice(firstSample)
   });
 }
 
@@ -253,7 +326,10 @@ function optionChanged(newSample) {
   buildEarningsDate(newSample);
   buildSurprise(newSample);
   buildEarningsRelease(newSample);
+  buildChart(newSample);
+  buildIntradayPrice(newSample)
 }
+
 
 // Initialize the dashboard
 init();
