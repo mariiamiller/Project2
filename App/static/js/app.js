@@ -278,10 +278,11 @@ function buildIntradayPrice(symbol) {
 
 
           console.log(parseFloat(percentageChange).toFixed(2)+"%")
-
+          console.log(lastRefreshed);
 
           $('#stockSymbol').html(stockSymbol);
           $('#stockAsk').html(lastTradePriceOnly);
+          $('#stockLastRefreshed').html(lastRefreshed);
           $('#stockVolume').html(numberWithCommas(lastVolume));
           $('#stockChange').html(parseFloat(change).toFixed(2));
           $("#stockChangePercent").html(parseFloat(percentageChange).toFixed(2)+"%");

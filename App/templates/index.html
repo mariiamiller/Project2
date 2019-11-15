@@ -76,7 +76,7 @@
 
             <div id="intraday_price" class="panel-body">
               <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-              <div id="stock_miniQuote_head" class="ajaxtrigger"><span id="stockSymbol"></span>&nbsp;(common stock)</div>
+              <!-- <div id="stock_miniQuote_head" class="ajaxtrigger"><span id="stockSymbol"></span>&nbsp;(common stock)</div> -->
 
               <div id="stock_miniQuote">
                 <div id="stockIndicator">
@@ -85,12 +85,12 @@
 
                 <div class="stock_divider">
                   <div id="stock_left">
-                    <span class="stock_label">Price</span><br/>
+                    <!-- <span class="stock_label">Price</span><br/> -->
                     <strong class="stock_strong">$<span id="stockAsk"></span></strong><br/>
                   </div>
 
                   <div id="stock_right">
-                    <span class="stock_label">Change</span><br/>
+                    <!-- <span class="stock_label">Change</span><br/> -->
                     <strong class="stock_strong"><span id="stockChange"></span></strong><br />
                     <strong class="stock_strong"><span id="stockChangePercent"></span></strong><br />
                   </div>
@@ -100,14 +100,18 @@
                 <div id="stock_body">
 
                   <div id="stock_body_content">
-                    <span class="stock_label">Volume</span><br/>
-                    <strong class="stock_strong"><span id="stockVolume"></span></strong>
-                    <br /><br />
+                    <span class="stock_label">Last updated:</span><br/>
+                    <strong class="stock_strong"><span id="stockLastRefreshed"></span></strong>
+<!--  
+                      I CHANGED VOLUME TO LAST REFRESHED!
+ 
+  -->
+                    <!-- <br /><br />
                     <span class="stock_label">Average Daily Volume</span><br/>
                     <strong class="stock_strong"><span id="stockAvgVolume"></span></strong>
                     <br /><br />
                     <span class="stock_label">52 Week Range</span><br/>
-                    <strong class="stock_strong"><span id="stockRange"></span></strong>
+                    <strong class="stock_strong"><span id="stockRange"></span></strong> -->
               
                   </div>
               
