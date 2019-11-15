@@ -179,11 +179,10 @@ def dailyprice(symbol):
     url =  f"{base_url}function={price_time}&symbol={symbol}&outputsize=full&apikey={api_key}"
     response = requests.get(url).json()
     dates = response.get("Time Series (Daily)").keys()
-    prices = {}
+    prices = []
     for date in dates:
-        prices[date] = response['Time Series (Daily)'][date]['5. adjusted close']
-
-
+        prices.append(date)
+        prices.append(response['Time Series (Daily)'][date]['5. adjusted close'])
     return jsonify(prices)
 
 @app.route("/intradayprice/<symbol>")

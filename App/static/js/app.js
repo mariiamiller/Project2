@@ -5,7 +5,6 @@ console.log("Mariaaa mariaaaaaa");
 
 $(document).ready(function() {
   $('#selDataset').select2();
-  console.log("Mariaaa mariaaaaaa");
 });
 
 function buildMetadata(symbol) {
@@ -315,7 +314,7 @@ function init() {
     buildEarningsRelease(firstSample);
     // TODO
     buildChart(firstSample);
-    buildIntradayPrice(firstSample)
+    buildIntradayPrice(firstSample);
   });
 }
 
@@ -327,7 +326,7 @@ function optionChanged(newSample) {
   buildSurprise(newSample);
   buildEarningsRelease(newSample);
   buildChart(newSample);
-  buildIntradayPrice(newSample)
+  buildIntradayPrice(newSample);
 }
 
 
