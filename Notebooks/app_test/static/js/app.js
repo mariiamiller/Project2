@@ -317,6 +317,7 @@ function init() {
     // TODO
     buildChart(firstSample);
     buildIntradayPrice(firstSample);
+    buildChart2(newSample);
   });
 }
 
@@ -329,6 +330,7 @@ function optionChanged(newSample) {
   buildEarningsRelease(newSample);
   buildChart(newSample);
   buildIntradayPrice(newSample);
+  buildChart2(newSample);
 }
 
 

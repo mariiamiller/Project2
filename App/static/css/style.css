@@ -2,7 +2,9 @@
 body {
   font: 16px Arial;
 }
-
+h2 {
+  color: darkgreen;
+}
 .bar {
   fill: blue;
 }
@@ -69,3 +71,9 @@ body {
   opacity: .5;
 
 }
+#earnings-date {
+  border: 2px red;
+}
+#selDataset { 
+  width:150px; }
+

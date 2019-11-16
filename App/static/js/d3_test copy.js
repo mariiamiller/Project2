@@ -88,13 +88,13 @@ var g = svg.append("g")
     
     // month is 0-based, that's why we need dataParts[1] - 1
         data2[i+1] = "20"+dateParts[2]+"-"+dateParts[0]+"-"+dateParts[1];
-        //console.log( data2[i+1]);
+        console.log( data2[i+1]);
         }
-        //console.log(data2[1]);
+        console.log(data2[1]);
 
         for (i=0;i< 2000 ;i+=2) {
           // while (data1[i]>=data2[1])
-          //console.log('inside loop')
+          console.log('inside loop')
           var loopArray = [];
           loopArray.push(data1[i]);
           loopArray.push(parseFloat(data1[i+1]));
@@ -104,7 +104,7 @@ var g = svg.append("g")
           if (data2[j+1] == data1[i]){
             // && data2[j+2]>=0){
             loopArray[2] = data2[j+2];
-            //console.log('equals...')
+            console.log('equals...')
             }
         }
           dataset.push(loopArray);
@@ -117,7 +117,7 @@ var g = svg.append("g")
 var parseTime = d3.timeParse("%Y-%m-%d");
 dataset.forEach(function(data) {
   data[0] = parseTime(data[0]);
-  //console.log(data);
+  console.log(data);
   data[1] = +data[1];
   data[2] = +data[2];
 });

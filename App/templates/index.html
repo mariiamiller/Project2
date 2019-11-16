@@ -21,14 +21,25 @@
         <p>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-3">
-        <div class="well">
-          <h5>SELECT Symbol:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+    
+      <div class="col-md-12">
+        
+          <h4>SELECT Symbol:
+          <select  id="selDataset" onchange="optionChanged(this.value)"></select></h4>
+        </div>
+        <!-- <div class="row"> -->
+          <div class="col-md-4">
+          <div class="well">
           <div id="sample-metadata" class="panel-body"></div>
 
 
+        </div>
+      
+        <div class="well">
+            <h4>Latest News</h4>
+
+            <div id="news" class="panel-body"></div>
+          </div>
         </div>
         <!-- <div class="panel panel-primary">
           <div class="panel-heading">
@@ -36,18 +47,80 @@
           </div>
           <div id="sample-metadata" class="panel-body"></div>
         </div> -->
-      </div>
-      <div class="col-md-5">
+      
+      <div class="col-md-4">
 
           <div class="well">
-            <h5 >Latest Earnings Report:</h5>
-          
+            <h4 >Latest Earnings Report:</h4>
+       
           <div id="earnings-release" class="panel-body"></div>
-            <div id="earnings-table" class="panel-body"></div>
-            <div id="earnings-date" class="panel-body"></div>
-          
+     
+       
+            <div id="earnings-link" class="panel-body "></div>
+        
+          <div id="earnings-date" class="panel-body"></div>
         </div>
+
+            <div class="well">
+                <h4>Real time price</h4>
+    
+                <div id="intraday_price" class="panel-body">
+                  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                  <!-- <div id="stock_miniQuote_head" class="ajaxtrigger"><span id="stockSymbol"></span>&nbsp;(common stock)</div> -->
+    
+                  <div id="stock_miniQuote">
+                    <div id="stockIndicator">
+                      <p>Retrieving stock information...</p>
+                    </div>
+    
+                    <div class="stock_divider">
+                        <div class="col-md-6">
+                 
+                          
+                        <!-- <span class="stock_label">Price</span><br/> -->
+                        <strong class="stock_strong">$<span id="stockAsk"></span></strong><br/>
+                      
+                      </div>
+                      <div class="col-md-3">
+                      
+                        <!-- <span class="stock_label">Change</span><br/> -->
+                        <strong class="stock_strong"><span id="stockChange"></span></strong>
+                      </div>
+                      <div class="col-md-3">
+                        <strong class="stock_strong"><span id="stockChangePercent"></span></strong>
+                      <!-- <div style="clear: both;"></div> -->
+                    </div>
+                    </div>
+    <br>
+                    <div id="stock_body"></div>
+    
+                      <div id="stock_body_content">
+                        <span class="stock_label">Last updated:</span><br/>
+                        <strong class="stock_strong"><span id="stockLastRefreshed"></span></strong>
+    <!--  
+                          I CHANGED VOLUME TO LAST REFRESHED!
+     
+      -->
+                        <!-- <br /><br />
+                        <span class="stock_label">Average Daily Volume</span><br/>
+                        <strong class="stock_strong"><span id="stockAvgVolume"></span></strong>
+                        <br /><br />
+                        <span class="stock_label">52 Week Range</span><br/>
+                        <strong class="stock_strong"><span id="stockRange"></span></strong> -->
+                  
+                      </div>
+                  
+                      <div style="clear: both;"></div>
+                  
+                    
+                  </div>
+              </div>
+              </div>
+    
+     
       </div>
+
+
 
       <div class="col-md-4">
           <div id="gauge"></div>
@@ -62,74 +135,50 @@
         </div> -->
       </div>
         
-      </div>
+      
     
   
   <div class="row">
     <div class="col-md-8">
-      <h3 class="panel-title">Graph</h3>
+      <h3 class="panel-title">Stock Prices($) vs Earnings Surprise</h3>
       <div id="bubble"></div>
     </div>
-    <div class="col-md-4">
-        <div class="well">
-            <h5>Real time price</h5>
-
-            <div id="intraday_price" class="panel-body">
-              <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-              <!-- <div id="stock_miniQuote_head" class="ajaxtrigger"><span id="stockSymbol"></span>&nbsp;(common stock)</div> -->
-
-              <div id="stock_miniQuote">
-                <div id="stockIndicator">
-                  <p>Retrieving stock information...</p>
-                </div>
-
-                <div class="stock_divider">
-                  <div id="stock_left">
-                    <!-- <span class="stock_label">Price</span><br/> -->
-                    <strong class="stock_strong">$<span id="stockAsk"></span></strong><br/>
-                  </div>
-
-                  <div id="stock_right">
-                    <!-- <span class="stock_label">Change</span><br/> -->
-                    <strong class="stock_strong"><span id="stockChange"></span></strong><br />
-                    <strong class="stock_strong"><span id="stockChangePercent"></span></strong><br />
-                  </div>
-                  <div style="clear: both;"></div>
-                </div>
-
-                <div id="stock_body">
-
-                  <div id="stock_body_content">
-                    <span class="stock_label">Last updated:</span><br/>
-                    <strong class="stock_strong"><span id="stockLastRefreshed"></span></strong>
-<!--  
-                      I CHANGED VOLUME TO LAST REFRESHED!
- 
-  -->
-                    <!-- <br /><br />
-                    <span class="stock_label">Average Daily Volume</span><br/>
-                    <strong class="stock_strong"><span id="stockAvgVolume"></span></strong>
-                    <br /><br />
-                    <span class="stock_label">52 Week Range</span><br/>
-                    <strong class="stock_strong"><span id="stockRange"></span></strong> -->
-              
-                  </div>
-              
-                  <div style="clear: both;"></div>
-              
-                </div>
-              </div>
-          </div>
-          </div>
-          <div class="well">
-              <h5>Latest News</h5>
-
-              <div id="news" class="panel-body"></div>
-            </div>
-    </div>
-  </div>
-  </div>
-
+</div>
+</div>
+<!-- 
+    <script> 
+        // Jquery
+            // var content = $(".content stock_strong").text();
+        ​
+            //     if (content > "high") {
+        ​
+            //         $(this).css("color", "#ffffff");
+            //     }
+            //   if (content == "0") {
+        ​
+            //         $(this).css("color", "#ccc");
+            //     }
+            //   if (content < "0") {
+        ​
+            //         $(this).css("color", "#000");
+            //     }
+            var content = $("#stockChange").text();
+            content = parseFloat(content);
+            console.log(content)
+        if (content > 0) {
+            
+            // $(this).css("color", "green");
+            $("#stockChange").css("color", "green");
+        }
+        if (content == 0) {
+        ​
+            $(this).css("color", "black");
+        }
+        if (content < 0) {
+        ​
+            $(this).css("color", "red");
+        }
+                </script> -->
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>

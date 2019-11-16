@@ -95,6 +95,7 @@ function buildEarningsDate(symbol) {
   
     console.log(data);
       var earningsDate = d3.select("#earnings-release")
+
       // Use `.html("") to clear any existing metadata
       earningsDate.selectAll("p").remove();
       earningsDate.selectAll("a").remove();
@@ -115,7 +116,37 @@ function buildEarningsDate(symbol) {
         });
      }
 
+     function buildNews(symbol) {
 
+      var url = "/latest_news/"+symbol;
+      //Use `d3.json` to fetch the metadata for a sample
+      
+      var data = []
+     // d3.json(url, function (json) {
+       d3.json(url).then(function(data) { 
+    
+      console.log(data);
+        var earningsNews = d3.select("#news")
+
+        earningsNews.selectAll("p").remove();
+        earningsNews.selectAll("a").remove();
+  
+        d3.select("#news").append("p").text(data[0]);
+        
+  
+          d3.select("#news").append("a").text("read more").attr("href",data[1]);
+      
+        
+            // // // Use `Object.entries` to add each key and value pair to the panel
+            // for (key in data) {
+            //   line = data[key];
+            // d3.select("#earnings-date").append("p").text(line);
+          
+            // }
+    
+          });
+       }
+  
 
    function buildSurprise(symbol) {
     var url = "/surprise/"+symbol;
@@ -171,6 +202,7 @@ function buildEarningsDate(symbol) {
 
   });
 }
+
     // // Hint: Inside the loop, you will need to use d3 to append new
     // // tags for each key-value in the metadata.
 
@@ -277,21 +309,41 @@ function buildIntradayPrice(symbol) {
           var change = lastTradePriceOnly - previousTradePrice
           var percentageChange = change/previousTradePrice*100
 
-
-          console.log(parseFloat(percentageChange).toFixed(2)+"%")
-          console.log(lastRefreshed);
-
+         
           $('#stockSymbol').html(stockSymbol);
           $('#stockAsk').html(lastTradePriceOnly);
           $('#stockLastRefreshed').html(lastRefreshed);
           $('#stockVolume').html(numberWithCommas(lastVolume));
-          $('#stockChange').html(parseFloat(change).toFixed(2));
-          $("#stockChangePercent").html(parseFloat(percentageChange).toFixed(2)+"%");
+          // $('#stockChange').html(parseFloat(change).toFixed(2));
+          // $("#stockChangePercent").html(parseFloat(percentageChange).toFixed(2)+"%");
+
+          change = parseFloat(change).toFixed(2);
+          if(change>0){
+            $('#stockChange').html("+"+change).css("color","green");
+          }else if(change === 0){
+            $('#stockChange').html(change).css("color","orange");
+          }else if(change < 0){
+            $('#stockChange').html(change).css("color","red");
+          }
+          // $('#stockChange').html(parseFloat(change).toFixed(2)).css("color","green");
+          var pC =  parseFloat(percentageChange).toFixed(2)
+          if(pC>0){
+            $("#stockChangePercent").html("+"+pC+"%").css("color","green");
+          }else if(pC === 0){
+            $("#stockChangePercent").html(pC+"%").css("color","orange");
+          }else if(pC < 0){
+            $("#stockChangePercent").html(pC+"%").css("color","red");
+          }
+          // $("#stockChangePercent").html(parseFloat(percen
+
+
           $("#stockIndicator").hide();
+          
         }
       });
     }
   });
+
 }
 
 function init() {
@@ -317,6 +369,7 @@ function init() {
     // TODO
     buildChart(firstSample);
     buildIntradayPrice(firstSample);
+    buildNews(firstSample);
   });
 }
 
@@ -329,6 +382,7 @@ function optionChanged(newSample) {
   buildEarningsRelease(newSample);
   buildChart(newSample);
   buildIntradayPrice(newSample);
+  buildNews(newSample);
 }
 
 

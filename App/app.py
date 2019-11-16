@@ -226,5 +226,20 @@ def latest_report(symbol):
     data = (qtr_t[0],dates[0],links[0])
     return jsonify(data)
 
+@app.route("/latest_news/<symbol>")
+def latest_news(symbol):
+
+    url = 'https://finance.yahoo.com/quote/'+symbol
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text)
+    latest_article = soup.find_all('li', class_="js-stream-content")[0]
+    art_text = latest_article.find('h3').text
+    art_link = "https://www.yahoo.com/" + latest_article.find('a')['href']
+
+    
+
+    data = (art_text,art_link)
+    return jsonify(data)
+
 if __name__ == "__main__":
     app.run()

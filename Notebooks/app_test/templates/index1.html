@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Earnings vs Stock Price</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Measurement of Post Earnings Announcement Drift</h1>
+        <p>Use the interactive charts below to explore the dataset</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="well">
+          <h5>SELECT Symbol:</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+          <div id="sample-metadata" class="panel-body"></div>
+
+
+        </div>
+        <!-- <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sample MetaData</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+        </div> -->
+      </div>
+      <div class="col-md-5">
+
+          <div class="well">
+            <h5 >Latest Earnings Report:</h5>
+          
+          <div id="earnings-release" class="panel-body"></div>
+            <div id="earnings-table" class="panel-body"></div>
+            <div id="earnings-date" class="panel-body"></div>
+          
+        </div>
+      </div>
+
+      <div class="col-md-4">
+          <div id="gauge"></div>
+          <div id="gauge2"></div>
+        <!-- <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Surprise score</h3>
+            
+          </div>
+          <div id="earnings-date" class="panel-body"></div>
+          
+        </div> -->
+      </div>
+        
+      </div>
+    
+  
+  <div class="row">
+    <div class="col-md-8">
+      <h3 class="panel-title">Graph</h3>
+      <div id="bubble"></div>
+      <div id = "visualization"></div>
+    </div>
+    <div class="col-md-4">
+        <div class="well">
+            <h5>Real time price</h5>
+
+            <div id="intraday_price" class="panel-body">
+              <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+              <!-- <div id="stock_miniQuote_head" class="ajaxtrigger"><span id="stockSymbol"></span>&nbsp;(common stock)</div> -->
+
+              <div id="stock_miniQuote">
+                <div id="stockIndicator">
+                  <p>Retrieving stock information...</p>
+                </div>
+
+                <div class="stock_divider">
+                  <div id="stock_left">
+                    <!-- <span class="stock_label">Price</span><br/> -->
+                    <strong class="stock_strong">$<span id="stockAsk"></span></strong><br/>
+                  </div>
+
+                  <div id="stock_right">
+                    <!-- <span class="stock_label">Change</span><br/> -->
+                    <strong class="stock_strong"><span id="stockChange"></span></strong><br />
+                    <strong class="stock_strong"><span id="stockChangePercent"></span></strong><br />
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+
+                <div id="stock_body">
+
+                  <div id="stock_body_content">
+                    <span class="stock_label">Last updated:</span><br/>
+                    <strong class="stock_strong"><span id="stockLastRefreshed"></span></strong>
+<!--  
+                      I CHANGED VOLUME TO LAST REFRESHED!
+ 
+  -->
+                    <!-- <br /><br />
+                    <span class="stock_label">Average Daily Volume</span><br/>
+                    <strong class="stock_strong"><span id="stockAvgVolume"></span></strong>
+                    <br /><br />
+                    <span class="stock_label">52 Week Range</span><br/>
+                    <strong class="stock_strong"><span id="stockRange"></span></strong> -->
+              
+                  </div>
+              
+                  <div style="clear: both;"></div>
+              
+                </div>
+              </div>
+          </div>
+          </div>
+          <div class="well">
+              <h5>Latest News</h5>
+
+              <div id="news" class="panel-body"></div>
+            </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- <script src="{{ url_for('static', filename='js/bonus.js') }}"></script> -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app2.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/d3_test.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+  <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+
+</body>
+
+</html>
