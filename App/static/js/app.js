@@ -134,7 +134,7 @@ function buildEarningsDate(symbol) {
         gauge: {
           axis: { range: [null, .5] },
           steps: [
-            { range: [0, .02589], color: "lightgreen" },
+            { range: [0, .02589], color: "greenyellow" },
             { range: [.02589, .125443], color: "yellow" },
             { range: [.125443, .5], color: "red" }
           ],
@@ -155,10 +155,11 @@ function buildEarningsDate(symbol) {
         mode: "gauge+number+delta",
         gauge: {
           axis: { range: [null, 1] },
+          bar: { color: "darkgreen" },
           steps: [
             { range: [0, .5], color: "red" },
             { range: [.5, .821429], color: "yellow" },
-            { range: [.821429, 1], color: "lightgreen" }
+            { range: [.821429, 1], color: "greenyellow" }
           ],
 
         }

@@ -13,14 +13,15 @@ body {
 .line {
   fill: none;
   stroke-width: 2px;
+  clip-path: url(#clip);
 }
 
-.green {
-  stroke: green;
+.black {
+  stroke: black;
 }
 
-.blue {
-  stroke: blue;
+.royalblue {
+  stroke: royalblue;
 }
 
 .text {
@@ -43,9 +44,28 @@ body {
 .line {
     fill: none;
     stroke: royalblue;
-    stroke-width: 3;
+    stroke-width: 2;
 }
 .dot {
     fill: royalblue;
     stroke: royalblue;
+}
+.bar--positive {
+  fill: greenyellow;
+  clip-path: url(#clip);
+}
+
+.bar--negative {
+  fill: red;
+
+
+}
+.area {
+
+  clip-path: url(#clip);
+  fill: steelblue;
+  stroke-width: 2px;
+  fill-opacity: .5;
+  opacity: .5;
+
 }

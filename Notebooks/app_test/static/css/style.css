@@ -1,0 +1,72 @@
+* { box-sizing: border-box; }
+body {
+  font: 16px Arial;
+}
+
+.bar {
+  fill: blue;
+}
+
+.bar:hover {
+  fill: red;
+}
+.line {
+  fill: none;
+  stroke-width: 2px;
+  clip-path: url(#clip);
+}
+
+.black {
+  stroke: black;
+}
+
+.royalblue {
+  stroke: royalblue;
+}
+
+.text {
+  font-size: 16px;
+  text-anchor: middle;
+}
+
+.earn-text {
+  fill: blue;
+}
+
+.stock-text {
+  fill: green;
+}
+.bar1 { fill: aqua; }
+.bar2 { fill: deepskyblue; }
+.bar3 { fill: steelblue; }
+.bar:hover {fill: orange; }
+.axis--x path { display: none; }
+.line {
+    fill: none;
+    stroke: royalblue;
+    stroke-width: 2;
+}
+.dot {
+    fill: royalblue;
+    stroke: royalblue;
+}
+.bar--positive {
+  fill: greenyellow;
+  clip-path: url(#clip);
+}
+
+.bar--negative {
+  fill: red;
+
+
+}
+.area {
+
+  clip-path: url(#clip);
+  fill: steelblue;
+  stroke-width: 2px;
+  fill-opacity: .5;
+  opacity: .5;
+
+}
+
